@@ -13,18 +13,18 @@
 //     
 // Revision:
 module clkdiv(
-input       XTAL_OSC,	//ÍâÖÃ¾§Õñ@100MHz
-output reg  clk_1Hz,	//1HzÊä³ö
-output reg  clk_10Hz,	//10HzÊä³ö
-output reg  clk_1KHz,	//1KHzÊä³ö
-input       rst			//¸´Î»ĞÅºÅ
+input       XTAL_OSC,	//å¤–ç½®æ™¶æŒ¯@100MHz
+output reg  clk_1Hz,	//1Hzè¾“å‡º
+output reg  clk_10Hz,	//10Hzè¾“å‡º
+output reg  clk_1KHz,	//1KHzè¾“å‡º
+input       rst			//å¤ä½ä¿¡å·
 );
 
-reg [27:0]  cnt_1Hz;//1Hz·ÖÆµ¼ÆÊıÆ÷
-reg [27:0]  cnt_10Hz;//10Hz·ÖÆµ¼ÆÊıÆ÷
-reg [27:0]  cnt_1KHz;//1KHz·ÖÆµ¼ÆÊıÆ÷
+reg [27:0]  cnt_1Hz;//1Hzåˆ†é¢‘è®¡æ•°å™¨
+reg [27:0]  cnt_10Hz;//10Hzåˆ†é¢‘è®¡æ•°å™¨
+reg [27:0]  cnt_1KHz;//1KHzåˆ†é¢‘è®¡æ•°å™¨
 
-/***Ö÷³ÌĞò¿é***/
+/***ä¸»ç¨‹åºå—***/
 
 //1Hz
 always@(posedge XTAL_OSC or negedge rst) begin
