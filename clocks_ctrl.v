@@ -1,6 +1,6 @@
 //
 // Company: 
-// Engineer: Liu Yangguang 		
+// Engineer: Aki Chen 		
 // Create Date: 
 // Design Name: 
 // Module Name: 
@@ -13,37 +13,37 @@
 //     
 // Revision:
 module clocks_ctrl(
-	input 			clk_1Hz,		//1HzÊäÈë	
-	input			clk_10Hz,		//10HzÊäÈë	
-	input			XTAL_OSC,		//100MHzÊäÈë	
-	input			en,				//ÔİÍ£ĞÅºÅ
-	input			mode,			//Ä£Ê½Ñ¡Ôñ
-	input 			inc,			//ÖÃÊıĞÅºÅ
-    input 			rst,  			//¸´Î»ĞÅºÅ
-    input 			key_flag,		//°´¼ü×´Ì¬
-    input 			alarm,			//ÄÖÖÓÉè¶¨
-	output reg [7:0] hour,			//Ğ¡Ê±Êä³ö
-	output reg [7:0] min,			//·ÖÖÓÊä³ö
-	output reg [7:0] sec,			//ÃëÊä³ö
-	output reg       chime,  		//Õûµã±¨Ê±±ê¼ÇĞÅºÅ 
-    output reg [1:0] state,			//Ê±ÖÓ¹¤×÷×´Ì¬
-    output reg       led,			//ÏÔÊ¾Ê¹ÄÜ
-    output reg [7:0] alarm_hour,	//ÄÖÖÓµÄĞ¡Ê±Î»
-	output reg [7:0] alarm_min		//ÄÖÖÓµÄ·ÖÖÓÎ»
+	input 			clk_1Hz,		//1Hzè¾“å…¥	
+	input			clk_10Hz,		//10Hzè¾“å…¥	
+	input			XTAL_OSC,		//100MHzè¾“å…¥	
+	input			en,				//æš‚åœä¿¡å·
+	input			mode,			//æ¨¡å¼é€‰æ‹©
+	input 			inc,			//ç½®æ•°ä¿¡å·
+    input 			rst,  			//å¤ä½ä¿¡å·
+    input 			key_flag,		//æŒ‰é”®çŠ¶æ€
+    input 			alarm,			//é—¹é’Ÿè®¾å®š
+	output reg [7:0] hour,			//å°æ—¶è¾“å‡º
+	output reg [7:0] min,			//åˆ†é’Ÿè¾“å‡º
+	output reg [7:0] sec,			//ç§’è¾“å‡º
+	output reg       chime,  		//æ•´ç‚¹æŠ¥æ—¶æ ‡è®°ä¿¡å· 
+    output reg [1:0] state,			//æ—¶é’Ÿå·¥ä½œçŠ¶æ€
+    output reg       led,			//æ˜¾ç¤ºä½¿èƒ½
+    output reg [7:0] alarm_hour,	//é—¹é’Ÿçš„å°æ—¶ä½
+	output reg [7:0] alarm_min		//é—¹é’Ÿçš„åˆ†é’Ÿä½
    );
    
-reg [1:0]   chime_flag;				//±¨Ê±×´Ì¬Î»
-reg [27:0]  cnt_1Hz;				//ÓÃÓÚ
+reg [1:0]   chime_flag;				//æŠ¥æ—¶çŠ¶æ€ä½
+reg [27:0]  cnt_1Hz;				//ç”¨äº
 
-//¶¨ÒåÊ¼ÖÕ¹¤×÷×´Ì¬²ÎÊı
-parameter 	counting=2'b00;	//¼ÆÊ±×´Ì¬
-parameter   set_hour=2'b01;	//ÉèÖÃĞ¡Ê±
-parameter   set_min=2'b10;	//ÉèÖÃ·ÖÖÓ
+//å®šä¹‰å§‹ç»ˆå·¥ä½œçŠ¶æ€å‚æ•°
+parameter 	counting=2'b00;	//è®¡æ—¶çŠ¶æ€
+parameter   set_hour=2'b01;	//è®¾ç½®å°æ—¶
+parameter   set_min=2'b10;	//è®¾ç½®åˆ†é’Ÿ
 
-/***Ö÷³ÌĞò¶Î***/
+/***ä¸»ç¨‹åºæ®µ***/
 
 
-//¹¤×÷
+//å·¥ä½œ
 always@(posedge XTAL_OSC or negedge rst) begin
     if(!rst) begin
         hour <= 8'b0;
@@ -92,7 +92,7 @@ always@(posedge XTAL_OSC or negedge rst) begin
     end 
 end       
 
-//ÉèÖÃÇĞ»» 
+//è®¾ç½®åˆ‡æ¢ 
 always@(posedge XTAL_OSC or negedge rst) begin
     if(!rst) state <= 2'b0;
     else if(key_flag && (~mode)) begin    
@@ -102,7 +102,7 @@ always@(posedge XTAL_OSC or negedge rst) begin
 	else state <= state;
 end
      
-//ÄÖÖÓÉèÖÃ
+//é—¹é’Ÿè®¾ç½®
 always@(posedge XTAL_OSC or negedge rst) begin
     if(!rst) begin
         alarm_hour <= 1'b0;
@@ -124,14 +124,14 @@ always@(posedge XTAL_OSC or negedge rst) begin
     end
 end
  
-//ÄÖÖÓ´¥·¢
+//é—¹é’Ÿè§¦å‘
 always@(posedge clk_10Hz or negedge rst) begin
     if(!rst) led<=1'b0;
     else if(alarm_hour==hour && alarm_min==min && alarm) led<=1'b1;
     else led<=1'b0;     
 end
 
-//Õûµã±¨Ê±
+//æ•´ç‚¹æŠ¥æ—¶
 always@(posedge clk_10Hz or negedge rst) begin
     if(!rst) begin  
 		chime <= 1'b0; 
