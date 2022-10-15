@@ -1,6 +1,6 @@
 //
 // Company: 
-// Engineer: Liu Yangguang 		
+// Engineer: Aki Chen		
 // Create Date: 
 // Design Name: 
 // Module Name: 
@@ -14,15 +14,15 @@
 // Revision:
 module clocks(
 	input			XTAL_OSC,
-	input			en,			//ÔİÍ£ĞÅºÅ
-	input			mode,		//Ä£Ê½Ñ¡Ôñ
-	input			inc,		//ÖÃÊıĞÅºÅ
-    input			rst, 		//¸´Î»ĞÅºÅ
-    input			alarm, 		//ÄÖÖÓĞÅºÅ
-    output [5:0] 	sel ,       //ÊıÂë¹ÜÎ»Ñ¡
-    output [7:0] 	seg_l,      //µÍÎ»ÊıÂë¹Ü¶ÎÑ¡
-	output [7:0] 	seg_h,		//¸ßÎ»ÊıÂë¹Ü¶ÎÑ¡
-    output       	led         //ÊıÂë¹ÜÍ¨µç×´Ì¬
+	input			en,			//æš‚åœä¿¡å·
+	input			mode,		//æ¨¡å¼é€‰æ‹©
+	input			inc,		//ç½®æ•°ä¿¡å·
+    input			rst, 		//å¤ä½ä¿¡å·
+    input			alarm, 		//é—¹é’Ÿä¿¡å·
+    output [5:0] 	sel ,       //æ•°ç ç®¡ä½é€‰
+    output [7:0] 	seg_l,      //ä½ä½æ•°ç ç®¡æ®µé€‰
+	output [7:0] 	seg_h,		//é«˜ä½æ•°ç ç®¡æ®µé€‰
+    output       	led         //æ•°ç ç®¡é€šç”µçŠ¶æ€
     );
 	
 wire clk_1Hz;
